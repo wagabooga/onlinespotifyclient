@@ -8,17 +8,19 @@ import {
 } from "@heroicons/react/outline"
 import { signOut, useSession } from"next-auth/react";
 import { useEffect, useState } from "react";
-import useSpotify from "../components/hooks/useSpotify"
+import { useRecoilState } from "recoil";
+import { playlistIdState } from "../atoms/playlistAtom";
+import useSpotify from "../components/hooks/useSpotify";
 
 function Sidebar() {
   const spotifyApi = useSpotify();
   const { data: session, status } = useSession();
   const [playlists, setPlaylists] = useState([]);
-  
+  const [playlistId, setPlaylistId] = useRecoilState(playlistIdState); // This is what we want Redux (in our case Recoil)
+
   useEffect(() => {
     if (spotifyApi.getAccessToken()) {
       spotifyApi.getUserPlaylists().then((data) => {
-        console.log("FFFF",data)
         setPlaylists(data.body.items)
       })
     }
@@ -58,16 +60,14 @@ function Sidebar() {
         </button>
         <hr className="border-t-[0.1px] border-gray-900" /> {/* see JusInTime*/}
 
-        <p className="cursorpointer hover:text-white"> Playlist name...</p>
-        <p className="cursorpointer hover:text-white"> Playlist name...</p>
-        <p className="cursorpointer hover:text-white"> Playlist name...</p>
-        <p className="cursorpointer hover:text-white"> Playlist name...</p>
-        <p className="cursorpointer hover:text-white"> Playlist name...</p>
-        <p className="cursorpointer hover:text-white"> Playlist name...</p>
-        <p className="cursorpointer hover:text-white"> Playlist name...</p>
-        <p className="cursorpointer hover:text-white"> Playlist name...</p>
-        <p className="cursorpointer hover:text-white"> Playlist name...</p>
-        
+        {playlists.map((playlist) => (
+          <p 
+          key={playlist.id} 
+          onClick={() => setPlaylistId(playlist.id)}
+          className="cursor-pointer hover:text-white">
+            {playlist.name}
+          </p> 
+        ))}
       </div>
     </div>
   )
