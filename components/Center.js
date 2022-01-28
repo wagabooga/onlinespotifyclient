@@ -1,9 +1,24 @@
-import { ChevronDownIcon } from "@heroicons/react/outline";
 import { useSession } from "next-auth/react";
-
+import { ChevronDownIcon } from "@heroicons/react/outline";
+import { useEffect, useState } from "react";
+import { shuffle } from "lodash";
+const colors = [
+  "from-red-300", // R
+  "from-orange-300", // O
+  "from-yellow-300", // Y
+  "from-green-300", // G
+  "from-blue-300", // B
+  "from-indigo-300", // I
+  "from-violet-300", // V
+]
 
 function Center() {
   const { data: session } = useSession();
+  const [color, setColor] = useState(null);
+
+  useEffect(() => {
+    setColor(shuffle(colors).pop());
+  }, [])
   return (
   <div className="flex-grow text-white">
     <header className="absolute top5 right-8">
@@ -14,7 +29,7 @@ function Center() {
       </div>
     </header>
 
-    <section className={`flex items-end space-x-7 bg-gradient-to-b to-black from-red-500 h-80 text-white padding-8`}>
+    <section className={`flex items-end space-x-7 bg-gradient-to-b to-black ${color} h-80 text-white padding-8`}>
       <img src="" alt=""></img>
     </section>
   </div>
