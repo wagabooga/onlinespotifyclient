@@ -5,6 +5,7 @@ import { shuffle } from "lodash";
 import { useRecoilState, useRecoilValue } from "recoil";
 import { playlistIdState, playlistState } from "../atoms/playlistAtom";
 import useSpotify from "./hooks/useSpotify";
+import Songs from "./Songs"
 const colors = [
   "from-red-300", // R
   "from-orange-300", // O
@@ -56,7 +57,7 @@ function Center() {
       </div>
     </section>
     <div>
-      {/* <Songs /> */}
+      <Songs />
     </div>
   </div>
   );
