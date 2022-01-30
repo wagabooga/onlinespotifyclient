@@ -3,7 +3,7 @@ import { ChevronDownIcon } from "@heroicons/react/outline";
 import { useEffect, useState } from "react";
 import { shuffle } from "lodash";
 import { useRecoilState, useRecoilValue } from "recoil";
-import { playlistIdState, playlistState } from "../atoms/playlistAtom";
+import { playlistState, playlistIdState  } from "../atoms/playlistAtom";
 import useSpotify from "./hooks/useSpotify";
 import Songs from "./Songs"
 const colors = [
@@ -35,10 +35,8 @@ function Center() {
     }).catch((err) => console.log("something went wrong fetching playlists"))
   }, [spotifyApi, playlistId])
 
-  console.log("fFffasadas",playlist)
-
   return (
-  <div className="flex-grow text-white">
+  <div className="flex-grow h-screen overflow-y-scroll scrollbar-hide">
     <header className="absolute top5 right-8">
       <div className="flex items-center bg-black space-x-3 opacity-90 hover:opacity-80 cursor-pointer rounded-full p-1 pr-2 text-white">
         <img className="rounded-full w-10 h-10" src={session?.user.image} alt="" />
