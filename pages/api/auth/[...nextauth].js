@@ -1,7 +1,7 @@
 // https://next-auth.js.org/getting-started/example
 import NextAuth from "next-auth";
 import spotifyProvider from "next-auth/providers/spotify";
-import spotifyApi from "../../../../spotter2/lib/spotify";
+import spotifyApi from "../../../lib/spotify";
 import { LOGIN_URL } from "../../../lib/spotify";
 
 async function refreshAccessToken(token) {
